@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#echo Backing up Plex at: $(date)
+archive_name=plex_data_dir_backup.tar.gz
+plex_home='/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/'
+backup_location=/tmp/plex_backup
+remote_location=/mnt/nas/media/backup/plex
+#echo Plex home: $plex_home
+#echo Backup location: $backup_location
+#echo Remote location: $remote_location
+#echo Archive name: $archive_name
+cd "$plex_home"
+mkdir -p $backup_location
+#echo Backing up data directory
+tar --exclude='./Cache' -czf $backup_location/$archive_name .
+#echo Copying backup to nas
+mkdir -p $remote_location
+cp $backup_location/$archive_name $remote_location
+#echo Backup complete at $(date)
