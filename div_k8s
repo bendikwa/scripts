@@ -1,0 +1,31 @@
+NFS:
+https://www.server-world.info/en/note?os=Debian_12&p=nfs&f=2
+K8S with Cilium and Containerd:
+https://blog.kubesimplify.com/how-to-install-a-kubernetes-cluster-with-kubeadm-containerd-and-cilium-a-hands-on-guide
+https://particule.io/en/blog/kubeadm-metrics-server/ -- Prepare for metrics-server
+
+Install Config sync:
+https://github.com/GoogleContainerTools/kpt-config-sync/blob/main/docs/installation.md
+
+
+
+Add User to k8s:
+https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-kubeconfig/
+
+kubeadm kubeconfig user --client-name=bendikwa
+
+Add CRB:
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin
+subjects:
+- kind: User
+  name: bendikwa
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+
+kubectl apply -f bendikwa-rbac.yaml
